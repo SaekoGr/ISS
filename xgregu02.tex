@@ -21,7 +21,7 @@
 \begin{document}
 
 \section*{Vypracovaný protokol}
-Tento projekt bol riešený v programe \texttt{GNU Octave} na základe znalostí nadobudnutých počas zimného semestra 2018/2019 v predmete Signály a systémy.
+Tento projekt bol vypracovaný v programe \texttt{GNU Octave} na základe znalostí nadobudnutých počas zimného semestra 2018/2019 v predmete Signály a systémy.
 
 \begin{enumerate}[leftmargin=*]
 %%% First task %%%
@@ -43,7 +43,7 @@ Tento projekt bol riešený v programe \texttt{GNU Octave} na základe znalostí
 \end{figure}
 
 %%% Fourth task %%%
-\item Filter má dolnú propusť.
+\item Na základe kmitočtovej charakteristiky tohoto filtru môžeme určiť, že sa jedná o dolnú propusť.
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{charac.png}}
@@ -57,14 +57,22 @@ Tento projekt bol riešený v programe \texttt{GNU Octave} na základe znalostí
 \end{figure}
 
 %%% Sixth task %%%
-\item
+\item Signál $ss[n]$ sme skutočne posunuli o TODO a dekódovali jeho symboly
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{shifted.png}}
 \end{figure}
 
-\item
-\item
+%%% Seventh task %%%
+\item Keďže bol posun väčší ako o 8 vzorkov, musela som porovnávať iba prvých $1999$ symbolov s pôvodného signálu $s$. Celkový počet chýb je $108$, čo vedie na chybovosť približne $5.402701 \%$
+
+%%% Eigth task %%%
+\item Na výpočet diskrétnej Fourierovej transformácie som použila funkciu \texttt{fft}.
+\begin{figure}[H]
+\centering
+\scalebox{0.40}{\includegraphics{fourier.png}}
+\end{figure}
+
 \item
 
 %%% Tenth task %%%
