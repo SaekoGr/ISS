@@ -31,8 +31,10 @@ y_input = s(1:321);
 hold on
 plot(x_axis_in, y_input);
 stem(x_axis_dec, y_decoded);
+title('Signal s[n] and decoded symbols');
 xlabel('t [s]');
 ylabel('s[n], symbols');
+#legend('s[n]', 'symbols');
 hold off
 saveas(f_0, 'second.png');
 close(f_0);
@@ -48,6 +50,8 @@ zplane(B, A);
 grid
 xlabel('Real part');
 ylabel('Imaginary part');
+title('Stability of filter');
+legend('Zeros', 'Poles');
 saveas(f_1, 'stability.png');
 close(f_1);
 fprintf("Vytvoril som filter\n");
@@ -59,6 +63,7 @@ x_axis = (0:255) / 256 * Fs / 2; % -- podla ukazmito
 y_axis = abs(freqz(B, A, 256));
 plot(x_axis, y_axis);
 xlabel('Hz');
+title('Filter charasteristics');
 saveas(f_2, 'charac.png');
 close(f_2);
 fprintf("Vytvoril som kmitočtovú charakteristiku filtra\n");
@@ -74,6 +79,7 @@ plot(x_axis_in, y_input);
 plot(x_axis_s, y_axis_s);
 xlabel('t [s]');
 ylabel('s[n], ss[n]');
+title('Filtered signal');
 hold off
 saveas(f_3, 'filtered.png');
 close(f_3);
@@ -102,6 +108,7 @@ stem(x_axis_dec, shift_y_decoded);
 plot(x_axis_s, s_shifted(1:1:321));
 xlabel('t [s]');
 ylabel('s[n], ss[n], ss_{shifted}[n]');
+title('Filtered, shifted and decoded signal');
 hold off
 saveas(f_4, 'shifted.png');
 close(f_4);
@@ -125,9 +132,9 @@ fprintf("\n8. Úloha\n");
 %%% Eight task %%%
 f_5 = figure();
 fft_s = abs(fft(s));
-fft_s = abs(fft_s(1:Fs/2+1));
+fft_s = fft_s(1:Fs/2+1);
 fft_ss = abs(fft(ss));
-fft_ss = abs(fft_ss(1:Fs/2+1));
+fft_ss = fft_ss(1:Fs/2+1);
 fft_x_axis = (0:Fs/2);
 
 hold on
@@ -135,10 +142,27 @@ plot(fft_x_axis, fft_s);
 plot(fft_x_axis, fft_ss);
 xlabel('[Hz]');
 legend('s[n]', 'ss[n]');
+title('Modulo of Discrete Fourier Transform');
 hold off
 saveas(f_5, 'fourier.png')
 close(f_5);
 fprintf("Vypočítal som spektrum pomocou DFT\n");
+
+%%% Ninth task %%%
+fprintf("\n9. Úloha\n");
+f_8 = figure();
+x_dist = linspace(min(s), max(s), 500);
+m = hist(s, x_dist);
+distance = abs(x_dist(2) - x_dist(1));
+p_func = m / length(s) / distance;
+hold on
+plot(x_dist, p_func);
+title('Probability distribution function');
+hold off
+saveas(f_8, 'distribution.png');
+close(f_8);
+fprintf("Integrál má hodnotu %f\n", sum(p_func * distance));
+fprintf("Odhadol som funkciu hustoty rozdelenia pravdepodobnosti\n");
 
 fprintf("\n10. Úloha\n");
 %%% Tenth task %%%
@@ -148,6 +172,7 @@ R = xcorr(s, 'biased');
 R = R(k + length(s));
 plot(k, R);
 xlabel('k');
+title('Correlation coefficients');
 saveas(f_6, 'corr.png');
 close(f_6);
 fprintf("Vypočítal som korelačný koeficient\n");
@@ -162,9 +187,9 @@ fprintf("\n12. Úloha\n");
 %%% Twelfth task %%%
 f_7 = figure(); 
 N = length(s);
-L = 50;
+L = 500;
 h = zeros(L, L);
-x = linspace(min(s), max(s), 50);
+x = linspace(min(s), max(s), 500);
 xcol = x(:);
 bigx = repmat(xcol, 1, N);
 yr = s(:)';

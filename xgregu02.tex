@@ -21,14 +21,14 @@
 \begin{document}
 
 \section*{Vypracovaný protokol}
-Tento projekt bol vypracovaný v programe \texttt{GNU Octave} na základe znalostí nadobudnutých počas zimného semestra 2018/2019 v predmete Signály a systémy.
+Tento projekt bol vypracovaný v~programe \texttt{GNU Octave} na základe znalostí nadobudnutých počas zimného semestra 2018/2019 v~predmete Signály a systémy.
 
 \begin{enumerate}[leftmargin=*]
 %%% First task %%%
-\item Použila som funkciu \texttt{audioread} na načítanie súboru \texttt{xgregu02.wav} a zistila som, že vzorkovacia frekvencia je 16~000 [Hz]. Súbor má teda 32~000 vzorkov za 2 sekundy.
+\item Použila som funkciu \texttt{audioread} na načítanie súboru \texttt{xgregu02.wav} do premennej $s$ a zistila som, že vzorkovacia frekvencia je 16~000 [Hz]. Súbor má teda 32~000 vzorkov za 2 sekundy. Dokopy to predstavuje 2~000 binárnych symbolov.
 
 %%% Second task %%%
-\item Pomocou cyklu \texttt{for} som dekódovala každý ôsmy vzor zo segmentu 16-tich vzorkov a jeho odpovedajúcu hodnotu som si uložila do vektora \texttt{decoded}. Jeho obsah som si naformátovala do pomocného súboru a pomocou softvéru \texttt{Meld} som si overila, že môj spracovaný signál je identický so súborom zo zadania.
+\item Pomocou cyklu \texttt{for} som dekódovala každý ôsmy vzor zo segmentu 16-tich vzorkov a jeho odpovedajúcu hodnotu som si uložila do vektora \texttt{decoded}. Jeho obsah som si naformátovala do pomocného súboru a pomocou softvéru \texttt{Meld} som si overila, že moje dekódované symboly sú identické so súborom zo \texttt{xgregu02.txt} zo zadania.
 
 \begin{figure}[H]
 \centering
@@ -36,51 +36,60 @@ Tento projekt bol vypracovaný v programe \texttt{GNU Octave} na základe znalos
 \end{figure}
 
 %%% Third task %%%
-\item Aby bol filter stabilný, musia byť všetko jeho póly v jednotkovej kružnici, čiže musí platiť  $|p_k| < 1$ Pomocou funkcie \texttt{zplane} som vizualizovala túto skutočnosť na uvedenom obrázku a túto skutočnosť som skontrolovala pomocou funkcie \texttt{ukazmito}. Môžeme teda prehlásiť, že filter je stabilný.
+\item Aby bol filter stabilný, musia byť všetko jeho póly v~jednotkovej kružnici, čiže musí platiť  $|p_k| < 1$. Pomocou funkcie \texttt{zplane} som vizualizovala túto skutočnosť na uvedenom obrázku a túto skutočnosť som skontrolovala pomocou funkcie \texttt{ukazmito}. Môžeme teda prehlásiť, že filter je stabilný.
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{stability.png}}
 \end{figure}
 
 %%% Fourth task %%%
-\item Na základe kmitočtovej charakteristiky tohoto filtru môžeme určiť, že sa jedná o dolnú propusť.
+\item Na základe kmitočtovej charakteristiky tohoto filtru môžeme určiť, že sa jedná o~dolnú propusť. Mezná hranica je v~bodoch, kde y-os nadobúda hodnoty $0.29$ až $1$. 
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{charac.png}}
 \end{figure}
 
 %%% Fifth task %%%
-\item Náš vstupný signál sme prefiltrovali filtrom a je na prvý pohľad je zrejmé, že nový signál $ss[n]$ je onsekorený.
+\item Náš vstupný signál sme prefiltrovali filtrom a je na prvý pohľad je zrejmé, že nový signál $ss[n]$ je onsekorený. Na základe pozorovania voľným okom môžem prehlásiť, že signál je určite oneskorený o~viac ako 8 vzorkov.
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{filtered.png}}
 \end{figure}
 
 %%% Sixth task %%%
-\item Signál $ss[n]$ sme skutočne posunuli o TODO a dekódovali jeho symboly
+\item Signál $ss[n]$ som skutočne posunula o~16 vzorkov, nakoľko mi po vizuálnej stránke najviac pripomínal pôvodný signál $s[n]$. Signál $ss[n]$ je teda oneskorený o~približne 16 vzorkov. Jeho symboly som dekódovala a zobrazila na grafe.
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{shifted.png}}
 \end{figure}
 
 %%% Seventh task %%%
-\item Keďže bol posun väčší ako o 8 vzorkov, musela som porovnávať iba prvých $1999$ symbolov s pôvodného signálu $s$. Celkový počet chýb je $108$, čo vedie na chybovosť približne $5.402701 \%$
+\item Keďže bol posun väčší ako o~8 vzorkov, musela som porovnávať iba prvých $1999$ symbolov z~pôvodného signálu $s$. Celkový počet chýb je $108$, čo vedie na chybovosť približne $5.402701 \%$
 
 %%% Eigth task %%%
-\item Na výpočet diskrétnej Fourierovej transformácie som použila funkciu \texttt{fft}.
+\item Na výpočet modula diskrétnej Fourierovej transformácie som použila funkciu \texttt{fft} v~absolútnej hodnote.
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{fourier.png}}
 \end{figure}
 
-\item
+%%% Ninth task %%%
+\item Odhadla som funkciu hustoty rozdelenia pravdepodobnosti pre signál $s[n]$. Ako kontrolu si vypočítame integrál
+\begin{align}
+\int_{x_1} p(x) dx = 1 \nonumber
+\end{align}
+a skutočne nám vyšla jednotka, čiže odhad môžeme označiť za správny.
+\begin{figure}[H]
+\centering
+\scalebox{0.40}{\includegraphics{distribution.png}}
+\end{figure}
 
 %%% Tenth task %%%
 \item Na výpočet autokorelačného koeficientu pomocou výrazu 
 \begin{align}
 R[k] = \frac{1}{N}\sum\limits_n x[n]x[n+k]\nonumber
 \end{align}
- som použila funkciu \texttt{xcorr} s parametrom \texttt{biased}.
+ som použila funkciu \texttt{xcorr} s~parametrom \texttt{biased}.
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{corr.png}}
@@ -95,7 +104,7 @@ R[16] \quad&= -0.002462\nonumber
 \end{align}
 
 %%% Twelfth task %%%
-\item Z funkcie v súbore \texttt{hist2opt.m} som si vybrala dôležité časti na výpočet  funkcie hustoty rozdelenia pradepodobnosti medzi vzorkami $n$ a $n+1$ a aplikovala som naň funkciu \texttt{imagesec}, ktorý vytvoril adekvátny obrázok. 
+\item Z~funkcie v~súbore \texttt{hist2opt.m} som si vybrala dôležité časti na výpočet  funkcie hustoty rozdelenia pradepodobnosti medzi vzorkami $n$ a $n+1$ a aplikovala som naň funkciu \texttt{imagesec}, ktorý vytvoril adekvátny obrázok. 
 \begin{figure}[H]
 \centering
 \scalebox{0.40}{\includegraphics{distr.png}}
@@ -106,13 +115,13 @@ R[16] \quad&= -0.002462\nonumber
 \begin{align}
 \int_{x_1} \int_{x_2} p(x_1, x_2, 1) dx_1 dx_2 = 1 \nonumber
 \end{align}
-Na základe príkazu \texttt{sum(sum(p))*surf} nám vyšla hodnota $0.99997$, čo môžeme považovať za správny výsledok s prihliadnutím na zaokrúhlovaciu chybu.
+Na základe príkazu \texttt{sum(sum(p))*surf} nám vyšla hodnota $0.99997$, čo môžeme považovať za správny výsledok s~prihliadnutím na zaokrúhlovaciu chybu.
 
 \item Výpočet som vykonala na základe funkcie zo súboru \texttt{hist2opt.m} a výsledok je
 \begin{align}
 R[1] = 0.234198 \nonumber
 \end{align}
-Ak porovnáme výsledok z úlohy č. 11, kde bol výsledok $R[1]=0.234161$, môžeme prehlásiť, že sú zhodné a rozdiel je spôsobený len chybou zaokrúhľovania a preto je teda zanedbateľná.
+Ak porovnáme výsledok z~úlohy č. 11, kde bol výsledok $R[1]=0.234161$, môžeme prehlásiť, že sú zhodné a rozdiel je spôsobený len chybou zaokrúhľovania a preto je teda zanedbateľná.
 
 \end{enumerate}
 
